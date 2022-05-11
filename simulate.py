@@ -12,7 +12,7 @@ planeId = p.loadURDF("plane.urdf");
 p.loadSDF("boxes.sdf");
 
 startTime = datetime.now() 
-for i in range(1000):
+for i in range(600):
   p.stepSimulation()
   time.sleep(0.01)
 print("  >>> Time Taken: ",datetime.now() - startTime) 
