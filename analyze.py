@@ -2,14 +2,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # PLOT TouchSensorValues
-# backLegTouchSensorValues = np.load("data/backLegTouchSensorValues.npy");
-# plt.plot(backLegTouchSensorValues, label="backLegTouchSensorValues", linewidth=2);
-# frontLegTouchSensorValues = np.load("data/frontLegTouchSensorValues.npy");
-# plt.plot(frontLegTouchSensorValues, label="frontLegTouchSensorValues");
+# backLegTouchSensorValues = np.load("data/BackLegTouchSensors.npy");
+# plt.plot(backLegTouchSensorValues, label="BackLegTouchSensors", linewidth=2);
+# frontLegTouchSensorValues = np.load("data/FrontLegTouchSensors.npy");
+# plt.plot(frontLegTouchSensorValues, label="FrontLegTouchSensors");
 # plt.legend();
 
-#PLOT targetAngles
-targetAngles = np.load("data/targetAngles.npy");
-plt.plot(targetAngles);
+#PLOT motorValues
+
+backLegMotorValues = np.load("data/Torso_BackLegCommands.npy");
+frontLegMotorValues = np.load("data/Torso_FrontLegCommands.npy");
+plt.plot(frontLegMotorValues);
+plt.plot(backLegMotorValues);
 
 plt.show();
