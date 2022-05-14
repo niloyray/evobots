@@ -28,9 +28,8 @@ class SIMULATION:
         for t in range(c.iterations):
             p.stepSimulation()
             self.robot.Sense(t)
+            self.robot.Think(t)
             self.robot.Act(t)
-            
             time.sleep(c.waitInterval);
         print("  >>> Time Taken: ",datetime.now() - startTime)
         self.robot.Save_Sensor_Values();
-        self.robot.Save_Motor_Values(); 
