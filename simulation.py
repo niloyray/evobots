@@ -10,14 +10,19 @@ import constants as c
 from robot import ROBOT
 
 class SIMULATION:
-    def __init__(self):
-        self.physicsClient = p.connect(p.GUI)
+    def __init__(self,directOrGUI):
+        self.directOrGUI = directOrGUI
+        if(directOrGUI=="DIRECT"):
+            self.physicsClient = p.connect(p.DIRECT)
+        else:
+            self.physicsClient = p.connect(p.GUI)
+
         p.setAdditionalSearchPath(pybullet_data.getDataPath());
 
         self.world = WORLD();
         self.robot = ROBOT();
 
-        print(pybullet_data.getDataPath());
+        # print(pybullet_data.getDataPath());
         p.setGravity(0, 0, -9.8);
 
     def __del__(self):
@@ -30,6 +35,10 @@ class SIMULATION:
             self.robot.Sense(t)
             self.robot.Think(t)
             self.robot.Act(t)
-            time.sleep(c.waitInterval);
+            if(self.directOrGUI=="GUI"):
+                time.sleep(c.waitInterval);
         print("  >>> Time Taken: ",datetime.now() - startTime)
         self.robot.Save_Sensor_Values();
+
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()

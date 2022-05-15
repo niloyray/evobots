@@ -40,7 +40,7 @@ class ROBOT:
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName)
                 self.motors[jointName].Set_Value(self.robotId,desiredAngle);
-                print("  motorNeuron:",neuronName,", joint:",jointName,", value:",desiredAngle);
+                # print("  motorNeuron:",neuronName,", joint:",jointName,", value:",desiredAngle);
     
     def Save_Motor_Values(self):
         for jointName in pyrosim.jointNamesToIndices:
@@ -48,4 +48,15 @@ class ROBOT:
 
     def Think(self,t):
         self.nn.Update();
-        self.nn.Print();
+        # self.nn.Print();
+    
+    def Get_Fitness(self):
+        stateOfLinkZero = p.getLinkState(self.robotId, 0)
+        positionOfLinkZero = stateOfLinkZero[0]
+        xCoordinateOfLinkZero=positionOfLinkZero[0]
+        fitnessFile=open("fitness.txt", "w")
+        fitnessFile.write(str(xCoordinateOfLinkZero))
+        fitnessFile.close()
+
+        # print(xCoordinateOfLinkZero)
+        exit()

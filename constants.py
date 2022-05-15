@@ -6,3 +6,6 @@ phaseOffset = 0;
 
 iterations = 1000;
 waitInterval = 1.0/240;
+# waitInterval = 0;
+
+numberOfGenerations = 500;
