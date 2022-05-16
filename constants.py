@@ -8,4 +8,5 @@ iterations = 1000;
 waitInterval = 1.0/240;
 # waitInterval = 0;
 
-numberOfGenerations = 500;
+numberOfGenerations = 100;
+populationSize = 10

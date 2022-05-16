@@ -6,15 +6,16 @@ import pybullet_data
 import pybullet as p
 import pyrosim.pyrosim as pyrosim
 from pyrosim.neuralNetwork import NEURAL_NETWORK
-
+import os
 
 class ROBOT:
-    def __init__(self) -> None:
+    def __init__(self, solutionID) -> None:
         self.robotId = p.loadURDF("body.urdf");
-        self.nn = NEURAL_NETWORK("brain.nndf")
+        self.nn = NEURAL_NETWORK("brain"+str(solutionID)+".nndf")
         pyrosim.Prepare_To_Simulate(self.robotId);
         self.Prepare_To_Sense();
         self.Prepare_To_Act();
+        os.system("del brain"+str(solutionID)+".nndf")
 
     def Prepare_To_Sense(self):
         self.sensors = {}
@@ -40,7 +41,6 @@ class ROBOT:
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName)
                 self.motors[jointName].Set_Value(self.robotId,desiredAngle);
-                # print("  motorNeuron:",neuronName,", joint:",jointName,", value:",desiredAngle);
     
     def Save_Motor_Values(self):
         for jointName in pyrosim.jointNamesToIndices:
@@ -50,13 +50,14 @@ class ROBOT:
         self.nn.Update();
         # self.nn.Print();
     
-    def Get_Fitness(self):
+    def Get_Fitness(self,solutionID):
         stateOfLinkZero = p.getLinkState(self.robotId, 0)
         positionOfLinkZero = stateOfLinkZero[0]
         xCoordinateOfLinkZero=positionOfLinkZero[0]
-        fitnessFile=open("fitness.txt", "w")
-        fitnessFile.write(str(xCoordinateOfLinkZero))
-        fitnessFile.close()
+        tmpFitnessFile=open("tmp"+str(solutionID)+".txt", "w")
+        tmpFitnessFile.write(str(xCoordinateOfLinkZero))
+        tmpFitnessFile.close()
+        os.rename("tmp"+str(solutionID)+".txt" , "fitness"+str(solutionID)+".txt")
 
         # print(xCoordinateOfLinkZero)
-        exit()
+        # exit()

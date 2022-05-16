@@ -1,1 +1,1 @@
-git push https://niloyray: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@github.com/niloyray/evobots.git %1 
+git push https://niloyray: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@github.com/niloyray/evobots %1 
